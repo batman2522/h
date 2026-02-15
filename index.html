@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Love Proposal ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
+body{
+height:100vh;width:100vw;
+display:flex;justify-content:center;align-items:center;
+background:#000;overflow:hidden;color:white;
+}
+.container{
+position:relative;width:90%;max-width:700px;text-align:center;padding:20px;
+}
+/* Buttons */
+button{
+padding:12px 25px;border:none;border-radius:25px;background:#ff4fa3;color:white;cursor:pointer;margin:10px;transition:0.3s;font-size:16px;
+}
+button:hover{transform:scale(1.1);}
+.hidden{display:none;}
+/* Name */
+#nameTitle{
+font-size:45px;font-weight:bold;margin:20px 0;
+animation:fadeIn 2s forwards;opacity:0;color: #ffb6c1;text-shadow: 2px 2px 8px #ff69b4;
+}
+@keyframes fadeIn{
+0%{opacity:0;transform:scale(0.8);}
+100%{opacity:1;transform:scale(1);}
+}
+/* Ring */
+#ring{
+font-size:90px;opacity:0;transform:scale(0);transition:1s;
+}
+#ring.show{opacity:1;transform:scale(1);}
+.heartbeat{animation:beat 1s infinite;}
+@keyframes beat{0%{transform:scale(1);}50%{transform:scale(1.2);}100%{transform:scale(1);}}
+/* Confetti */
+.confetti{position:absolute;width:8px;height:8px;animation:fall 3s linear forwards;}
+@keyframes fall{0%{transform:translateY(-50px) rotate(0);}100%{transform:translateY(600px) rotate(360deg);}}
+/* Stars */
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:twinkle linear infinite;}
+@keyframes twinkle{0%{opacity:0;}50%{opacity:1;}100%{opacity:0;}}
+/* Image */
+#loveImage{width:200px;height:200px;border-radius:50%;margin:20px auto;display:block;object-fit:cover;border:3px solid #ff69b4;box-shadow:0 0 20px #ff69b4;}
+/* Love Message */
+#messageBox{
+background:linear-gradient(135deg,#ffe6f0,#ffb6c1);
+padding:20px;border-radius:20px;margin:20px auto;font-size:18px;color:#000;
+line-height:1.6;max-height:80vh;overflow-y:auto;text-align:left;box-shadow:0 0 20px #ff69b4;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Page 1: Start -->
+<div id="page1">
+<h2>Welcome my princess💖</h2>
+<button onclick="goToMessage()">Start 💕</button>
+</div>
+
+<!-- Page 2: Name + Image + Continue -->
+<div id="page2" class="hidden">
+<h1 id="nameTitle"></h1>
+<img src="0df2bed6-4479-44fa-a59a-ccffcf73d01e.jpg" id="loveImage" alt="Her Photo">
+<button onclick="goToProposal()">Continue 💍</button>
+</div>
+
+<!-- Page 3: Proposal -->
+<div id="page3" class="hidden">
+<h2 id="proposalText">Will you marry me and be my princess forever? ❤️</h2>
+<div id="ring">💍</div>
+<button onclick="yesAnswer()">YES 💖</button>
+<button id="noBtn" onmouseover="moveNo()">NO 😅</button>
+</div>
+
+<!-- Page 4: Message -->
+<div id="page4" class="hidden">
+<div id="messageBox"></div>
+</div>
+
+<!-- Music -->
+<audio id="music" loop autoplay>
+<!-- ضع هنا رابط الأغنية mp3 من الانترنت -->
+<source src="C:\Users\yamou\OneDrive\Bureau\love\Andrea Vanzo - Valzer d'Inverno (Official Video).mp3" type="audio/mp3">
+</audio>
+
+</div>
+
+<script>
+// ===== Config =====
+const herName="My Beautiful Tesnim";
+const loveMessage=`Since you entered my life, everything has felt different…
+It’s as if the world became calmer, brighter, and closer to my heart.
+You weren’t just someone I fell in love with—you became the safety I didn’t even know I was searching for, the light that illuminated my days without me realizing.
+I love you more than words could ever describe.
+I love your smile that takes away all my worries, your voice that soothes my heart, and the little details about you that no one else notices… but to me, they are an entire world.
+I miss you every single moment, even when you are close.
+I miss our talks, your laughter, the way you call my name, and even our silences… because just having you by my side is enough.
+With you, I feel like I want to become the best version of myself.
+I want to succeed for you, smile for you, fight for our dreams together.
+I want you to be my every day, the start of my morning and the end of my night. I want you to be my whole life… not for a while, but forever.
+If I could choose my heart again, I would choose you a thousand times without hesitation.
+You are my love, my choice, and the future I want.
+I promise to always love you, hold you, be your support in both your weakness and your strength, and stay by your side no matter what changes around us.
+I love you more than you can imagine…
+And I want you to be my whole life 💍❤️`;
+
+// ===== Stars =====
+for(let i=0;i<100;i++){
+  let star=document.createElement("div");
+  star.classList.add("star");
+  star.style.top=Math.random()*100+"%";
+  star.style.left=Math.random()*100+"%";
+  star.style.animationDuration=(Math.random()*3+2)+"s";
+  document.body.appendChild(star);
+}
+
+// ===== Pages =====
+function goToMessage(){
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
+  document.getElementById("nameTitle").innerText="For "+herName+" ❤️";
+  playMusic();
+}
+
+function goToProposal(){
+  document.getElementById("page2").classList.add("hidden");
+  document.getElementById("page3").classList.remove("hidden");
+  document.body.style.background="#ffb6c1";
+  setTimeout(()=>{
+    let ring=document.getElementById("ring");
+    ring.classList.add("show");
+    ring.classList.add("heartbeat");
+  },300);
+}
+
+// ===== YES Button =====
+function yesAnswer(){
+  celebrate();
+  document.getElementById("page3").classList.add("hidden");
+  document.getElementById("page4").classList.remove("hidden");
+  typeMessage(loveMessage, document.getElementById("messageBox"), 20);
+}
+
+// ===== NO Button =====
+function moveNo(){
+  let btn=document.getElementById("noBtn");
+  btn.style.position="absolute";
+  btn.style.left=Math.random()*80+"%";
+  btn.style.top=Math.random()*80+"%";
+}
+
+// ===== Typing Effect =====
+function typeMessage(text,element,speed){
+  element.innerHTML="";
+  let i=0;
+  function typing(){
+    if(i<text.length){
+      let char=text[i];
+      if(char==="\n"){element.innerHTML+="<br>";}
+      else{element.innerHTML+=char;}
+      i++;
+      setTimeout(typing,speed);
+    }
+  }
+  typing();
+}
+
+// ===== Confetti =====
+function celebrate(){
+  for(let i=0;i<120;i++){
+    let c=document.createElement("div");
+    c.classList.add("confetti");
+    c.style.left=Math.random()*100+"%";
+    c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
+// ===== Music =====
+function playMusic(){
+  let music=document.getElementById("music");
+  if(music.paused){music.play();}
+}
+</script>
+
+</body>
+</html>
